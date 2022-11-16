@@ -246,6 +246,52 @@ void quickSortMEDIA(int *vetor,int n)
 }
 
 
+//Quick Sort Random
+void swap(int vetor[], int i, int j)
+{
+    int temp = vetor[i];
+    vetor[i] = vetor[j];
+    vetor[j] = temp;
+}
+int particaoRANDOM(int vetor[], int esq, int dir) 
+{
+    int k;
+    double d;
+    d = (double) rand () / ((double) RAND_MAX + 1);
+    k = d * (dir - esq + 1);
+    int randomIndex = esq + k;
+    swap(vetor, randomIndex, dir);
+    int pivo = vetor[dir];
+    int i = esq - 1;
+    int j;
+    for (j = esq; j <= dir - 1; j++) 
+    {
+        if (vetor[j] <= pivo) 
+        {
+            i = i + 1;
+            swap(vetor, i, j);
+        }
+    }
+    //coloca o pivô na posição de ordenação
+    swap(vetor, i + 1, dir);
+    return i + 1; //retorna a posição do pivô
+}
+
+void ordenaRANDOM(int vetor[], int esq, int dir) 
+{
+    if (esq < dir) 
+    {
+        int q = particaoRANDOM(vetor, esq, dir);
+        ordenaRANDOM(vetor, esq, q - 1);
+        ordenaRANDOM(vetor, q + 1, dir);
+    }
+}
+void quickSortRANDOM(int *vetor,int n)
+{
+	ordenaRANDOM(vetor,0,n-1);
+}
+
+
 
 void gravaVetorOrdenado(int *vetor, int tamanho, char* algoritmo)
 {
@@ -443,6 +489,13 @@ void operacoes(int algoritmo, int tamanho, int tipo)
         printf("Aplicando algoritmo Quick Sort com pivô escolhido com o metodo da media para ordenacao. Por favor aguarde...");         
         quickSortMEDIA(vetor, tamanho); //Ordena o Vetor
     }
+    if(algoritmo == 8)
+    {
+        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickRandom/saidaquickrandom%s%d.txt", nome_tipo, tamanho);
+        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickRandom/tempoquickrandom%s%d.txt", nome_tipo, tamanho);
+        printf("Aplicando algoritmo Quick Sort com pivô escolhido com o metodo da aleatorio para ordenacao. Por favor aguarde...");         
+        quickSortRANDOM(vetor, tamanho); //Ordena o Vetor
+    }
     system("cls");
     end = clock();//fim
     tempo_gasto = ((end - start) / (double)CLOCKS_PER_SEC); //Calcula diferenca de tempo entre inicio e fim    
@@ -473,12 +526,12 @@ int main()
 
     while(menu != 0)
     {
-        printf("Escolha um algoritmo:\n1 - Insertion sort\n2 - Bubble sort\n3 - Selection sort\n4 - Shell sort\n5 - Merge Sort\n6 - Quick Sort\n7 - Quick Sort Media\n0 - Encerrar\n");
+        printf("Escolha um algoritmo:\n1 - Insertion sort\n2 - Bubble sort\n3 - Selection sort\n4 - Shell sort\n5 - Merge Sort\n6 - Quick Sort\n7 - Quick Sort Media\n8 - Quick Sort Random\n0 - Encerrar\n");
         scanf("%d", &menu); 
         algoritmo = menu;
         system("cls");  //Limpando a Tela     
 
-        if (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5 || menu == 6 || menu == 7)
+        if (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5 || menu == 6 || menu == 7 || menu == 8)
         {
             while(menu != 0)
             {
