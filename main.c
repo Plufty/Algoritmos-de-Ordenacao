@@ -272,9 +272,8 @@ int particaoRANDOM(int vetor[], int esq, int dir)
             swap(vetor, i, j);
         }
     }
-    //coloca o pivô na posição de ordenação
     swap(vetor, i + 1, dir);
-    return i + 1; //retorna a posição do pivô
+    return i + 1; 
 }
 
 void ordenaRANDOM(int vetor[], int esq, int dir) 
@@ -291,7 +290,82 @@ void quickSortRANDOM(int *vetor,int n)
 	ordenaRANDOM(vetor,0,n-1);
 }
 
+//Quick Sort Mediana
 
+int particaoMEDIANA(int vetor[], int esq, int dir) 
+{
+    int meio = (esq + dir) / 2;
+    int a = vetor[esq];
+    int b = vetor[meio];
+    int c = vetor[dir];
+    int medianaIndice;
+    if (a < b) 
+    {
+        if (b < c) 
+        {
+            medianaIndice = meio;
+        } 
+        else 
+        {
+            if (a < c) 
+            {
+                medianaIndice = dir;
+            }
+            else 
+            {
+                medianaIndice = esq;
+            }
+        }
+    }
+    else 
+    {
+        if (c < b) 
+        {
+            medianaIndice = meio;
+        } 
+        else 
+        {
+            if (c < a) 
+            {
+                medianaIndice = dir;
+            } 
+            else 
+            {
+                medianaIndice = esq;
+            }
+        }
+    }
+    swap(vetor, medianaIndice, dir);
+    int pivo = vetor[dir];
+    int i = esq - 1;
+    int j;
+
+    for (j = esq; j <= dir - 1; j++) 
+    {
+        if (vetor[j] <= pivo) 
+        {
+            i = i + 1;
+            swap(vetor, i, j);
+        }
+    }
+    swap(vetor, i + 1, dir);
+    return i + 1;
+}
+
+void ordenaMEDIANA(int vetor[], int esq, int dir) 
+{
+    if (esq < dir) 
+    {
+        int q = particaoMEDIANA(vetor, esq, dir);
+        ordenaMEDIANA(vetor, esq, q - 1);
+        ordenaMEDIANA(vetor, q + 1, dir);
+    }
+}
+
+void quickSortMEDIANA(int *vetor,int n)
+{
+	ordenaMEDIANA(vetor,0,n-1);
+}
 
 void gravaVetorOrdenado(int *vetor, int tamanho, char* algoritmo)
 {
@@ -486,15 +560,22 @@ void operacoes(int algoritmo, int tamanho, int tipo)
     {
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickMEDIA/saidaquickmedia%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickMEDIA/tempoquickmedia%s%d.txt", nome_tipo, tamanho);
-        printf("Aplicando algoritmo Quick Sort com pivô escolhido com o metodo da media para ordenacao. Por favor aguarde...");         
+        printf("Aplicando algoritmo Quick Sort com pivo escolhido com o metodo da media para ordenacao. Por favor aguarde...");         
         quickSortMEDIA(vetor, tamanho); //Ordena o Vetor
     }
     if(algoritmo == 8)
     {
-        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickRandom/saidaquickrandom%s%d.txt", nome_tipo, tamanho);
-        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickRandom/tempoquickrandom%s%d.txt", nome_tipo, tamanho);
-        printf("Aplicando algoritmo Quick Sort com pivô escolhido com o metodo da aleatorio para ordenacao. Por favor aguarde...");         
+        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickRANDOM/saidaquickrandom%s%d.txt", nome_tipo, tamanho);
+        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickRANDOM/tempoquickrandom%s%d.txt", nome_tipo, tamanho);
+        printf("Aplicando algoritmo Quick Sort com pivo escolhido com o metodo da aleatorio para ordenacao. Por favor aguarde...");         
         quickSortRANDOM(vetor, tamanho); //Ordena o Vetor
+    }
+    if(algoritmo == 88)
+    {
+        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickMEDIANA/saidaquickmediana%s%d.txt", nome_tipo, tamanho);
+        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickMEDIANA/tempoquickmediana%s%d.txt", nome_tipo, tamanho);
+        printf("Aplicando algoritmo Quick Sort com pivo escolhido com o metodo da mediana para ordenacao. Por favor aguarde...");         
+        quickSortMEDIANA(vetor, tamanho); //Ordena o Vetor
     }
     system("cls");
     end = clock();//fim
@@ -526,12 +607,12 @@ int main()
 
     while(menu != 0)
     {
-        printf("Escolha um algoritmo:\n1 - Insertion sort\n2 - Bubble sort\n3 - Selection sort\n4 - Shell sort\n5 - Merge Sort\n6 - Quick Sort\n7 - Quick Sort Media\n8 - Quick Sort Random\n0 - Encerrar\n");
+        printf("Escolha um algoritmo:\n1 - Insertion sort\n2 - Bubble sort\n3 - Selection sort\n4 - Shell sort\n5 - Merge Sort\n6 - Quick Sort\n7 - Quick Sort Media\n8 - Quick Sort Random\n88 - Quick Sort \n0 - Encerrar\n");
         scanf("%d", &menu); 
         algoritmo = menu;
         system("cls");  //Limpando a Tela     
 
-        if (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5 || menu == 6 || menu == 7 || menu == 8)
+        if (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5 || menu == 6 || menu == 7 || menu == 8 || menu == 88)
         {
             while(menu != 0)
             {
