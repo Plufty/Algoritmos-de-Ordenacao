@@ -89,50 +89,77 @@ void shellSort(int *vetor, int n)
 }
 
 //Merge Sort
-void merge(int vetor[], int inicio, int meio, int fim) 
+void mergeSort(int *vetor, int n) 
 {
- 	
- 	int com1 = inicio, com2 = meio+1, comAux = 0, vetAux[fim-inicio+1];
-	while(com1<=meio && com2<=fim)
+  int *c = malloc(sizeof(int) * n);
+  sort(vetor, c, 0, n - 1);
+  free(c);
+}
+
+/*
+  Dado um vetor de inteiros e dois inteiros i e f, ordena o vetor[i..f] em ordem crescente.
+  O vetor c é utilizado internamente durante a ordenação.
+*/
+void sort(int *vetor, int *c, int i, int f) 
+{
+  if (i >= f)
+  {
+    return;
+  } 
+
+  int m = (i + f) / 2;
+
+  sort(vetor, c, i, m);
+  sort(vetor, c, m + 1, f);
+
+  /* Se vetor[m] <= vetor[m + 1], então vetor[i..f] já está ordenado. */
+  if (vetor[m] <= vetor[m + 1])
+  {
+    return;
+  } 
+
+  merge(vetor, c, i, m, f);
+}
+
+
+/*
+  Dado um vetor e três inteiros i, m e f, sendo vetor[i..m] e vetor[m+1..f] vetores ordenados,
+  coloca os elementos destes vetores, em ordem crescente, no vetor em vetor[i..f].
+*/
+void merge(int *vetor, int *c, int i, int m, int f) 
+{
+  int z, iv = i, ic = m + 1;
+
+  for (z = i; z <= f; z++)
+  {
+    c[z] = vetor[z];
+  }
+
+  z = i;
+
+  while (iv <= m && ic <= f) 
+  {
+    /* Invariante: vetor[i..z] possui os valores de vetor[iv..m] e vetor[ic..f] em ordem crescente. */
+
+    if (c[iv] <= c[ic])
     {
- 		if(vetor[com1] <= vetor[com2])
-        {
- 			vetAux[comAux] = vetor[com1];
- 			com1++;
-        }
-        else
-        {
-            vetAux[comAux] = vetor[com2];
-            com2++; 
-        }
-        comAux++; 
-	}
-	while(com1<=meio)
-    { //Caso ainda haja elementos na primeira metade
-        vetAux[comAux] = vetor[com1];
-        comAux++;
-        com1++; 
+      vetor[z++] = c[iv++];
+    } 
+    else
+    {
+      vetor[z++] = c[ic++];
     }
-	while(com2<=fim)
-    { //Caso ainda haja elementos na segunda metade
-        vetAux[comAux] = vetor[com2];
-        comAux++;com2++; 
-	}
- 	for(comAux=inicio;comAux<=fim;comAux++)
-    { //Move os elementos de volta para o vetor original
- 		vetor[comAux] = vetAux[comAux-inicio];
- 	}
- }
- 
-void mergeSort(int* vetor, int inicio, int fim)
-{
-	if (inicio < fim) 
-    {
- 		int meio = (inicio+fim)/2;
- 		mergeSort(vetor, inicio, meio);
-		mergeSort(vetor, meio+1, fim);
-		merge(vetor, inicio, meio, fim);
- 	}
+  }
+
+  while (iv <= m)
+  {
+    vetor[z++] = c[iv++];
+  } 
+
+  while (ic <= f)
+  {
+    vetor[z++] = c[ic++];
+  } 
 }
 
 //Quick Sort
@@ -547,7 +574,7 @@ void operacoes(int algoritmo, int tamanho, int tipo)
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Merge/saidamerge%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Merge/tempomerge%s%d.txt", nome_tipo, tamanho);
         printf("Aplicando algoritmo Merge Sort para ordenacao. Por favor aguarde...");         
-        mergeSort(vetor, 0, tamanho); //Ordena o Vetor
+        mergeSort(vetor, tamanho); //Ordena o Vetor
     }
     if(algoritmo == 6)
     {
