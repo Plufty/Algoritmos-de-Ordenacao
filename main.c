@@ -89,7 +89,8 @@ void shellSort(int *vetor, int n)
 }
 
 //Merge Sort
-void merge(int vetor[], int inicio, int meio, int fim) {
+void merge(int vetor[], int inicio, int meio, int fim) 
+{
  	
  	int com1 = inicio, com2 = meio+1, comAux = 0, vetAux[fim-inicio+1];
 	while(com1<=meio && com2<=fim)
@@ -426,7 +427,7 @@ void operacoes(int algoritmo, int tamanho, int tipo)
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Merge/saidamerge%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Merge/tempomerge%s%d.txt", nome_tipo, tamanho);
         printf("Aplicando algoritmo Merge Sort para ordenacao. Por favor aguarde...");         
-        mergeSort(vetor, 0, tamanho-1); //Ordena o Vetor
+        mergeSort(vetor, 0, tamanho); //Ordena o Vetor
     }
     if(algoritmo == 6)
     {
