@@ -550,54 +550,33 @@ void operacoes(int algoritmo, int tamanho, int tipo)
     }
     if(algoritmo == 2)
     {
-        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Bubble/saidabubble%s%d.txt", nome_tipo, tamanho);
-        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Bubble/tempobubble%s%d.txt", nome_tipo, tamanho);
-        printf("Aplicando algoritmo Bubble Sort para ordenacao. Por favor aguarde...");         
-        bubbleSort(vetor, tamanho); //Ordena o Vetor
-    }
-    if(algoritmo == 3)
-    {
-        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Selection/saidaselection%s%d.txt", nome_tipo, tamanho);
-        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Selection/temposelection%s%d.txt", nome_tipo, tamanho);
-        printf("Aplicando algoritmo Selection Sort para ordenacao. Por favor aguarde...");         
-        selectionSort(vetor, tamanho); //Ordena o Vetor
-    }
-    if(algoritmo == 4)
-    {
-        sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Shell/saidashell%s%d.txt", nome_tipo, tamanho);
-        sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Shell/temposhell%s%d.txt", nome_tipo, tamanho);
-        printf("Aplicando algoritmo Shell Sort para ordenacao. Por favor aguarde...");         
-        shellSort(vetor, tamanho); //Ordena o Vetor
-    }
-    if(algoritmo == 5)
-    {
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Merge/saidamerge%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Merge/tempomerge%s%d.txt", nome_tipo, tamanho);
         printf("Aplicando algoritmo Merge Sort para ordenacao. Por favor aguarde...");         
         mergeSort(vetor, tamanho); //Ordena o Vetor
     }
-    if(algoritmo == 6)
+    if(algoritmo == 3)
     {
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/Quick/saidaquick%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/Quick/tempoquick%s%d.txt", nome_tipo, tamanho);
         printf("Aplicando algoritmo Quick Sort para ordenacao. Por favor aguarde...");         
         quickSort(vetor, tamanho); //Ordena o Vetor
     }
-    if(algoritmo == 7)
+    if(algoritmo == 4)
     {
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickMEDIA/saidaquickmedia%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickMEDIA/tempoquickmedia%s%d.txt", nome_tipo, tamanho);
         printf("Aplicando algoritmo Quick Sort com pivo escolhido com o metodo da media para ordenacao. Por favor aguarde...");         
         quickSortMEDIA(vetor, tamanho); //Ordena o Vetor
     }
-    if(algoritmo == 8)
+    if(algoritmo == 5)
     {
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickRANDOM/saidaquickrandom%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickRANDOM/tempoquickrandom%s%d.txt", nome_tipo, tamanho);
         printf("Aplicando algoritmo Quick Sort com pivo escolhido com o metodo da aleatorio para ordenacao. Por favor aguarde...");         
         quickSortRANDOM(vetor, tamanho); //Ordena o Vetor
     }
-    if(algoritmo == 88)
+    if(algoritmo == 6)
     {
         sprintf(nome_saida_algoritmo, "./Saidas/Ordenado/QuickMEDIANA/saidaquickmediana%s%d.txt", nome_tipo, tamanho);
         sprintf(nome_saida_tempo_algoritmo, "./Saidas/Tempos/QuickMEDIANA/tempoquickmediana%s%d.txt", nome_tipo, tamanho);
@@ -634,12 +613,12 @@ int main()
 
     while(menu != 0)
     {
-        printf("Escolha um algoritmo:\n1 - Insertion sort\n2 - Bubble sort\n3 - Selection sort\n4 - Shell sort\n5 - Merge Sort\n6 - Quick Sort\n7 - Quick Sort Media\n8 - Quick Sort Random\n88 - Quick Sort \n0 - Encerrar\n");
+        printf("Escolha um algoritmo:\n1 - Insertion sort\n2 - Merge Sort\n3 - Quick Sort\n4 - Quick Sort Media\n5 - Quick Sort Random\n6 - Quick Sort \n0 - Encerrar\n");
         scanf("%d", &menu); 
         algoritmo = menu;
         system("cls");  //Limpando a Tela     
 
-        if (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5 || menu == 6 || menu == 7 || menu == 8 || menu == 88)
+        if (menu == 1 || menu == 2 || menu == 3 || menu == 4 || menu == 5 || menu == 6)
         {
             while(menu != 0)
             {
