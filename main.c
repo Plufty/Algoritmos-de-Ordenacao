@@ -21,78 +21,11 @@ void insertionSort(int *vetor, int tamanho)
     }
 }
 
-//Bubble Sort
-void bubbleSort(int *vetor, int n)
-{
-	int i,j;
-    for( i = 0; i < n; i++ )
-    {
-        for(j=0;j<(n-(i+1));j++)
-        {
-            if ( vetor[j] > vetor[j+1] )
-            {
-                int aux = vetor[j];
-                vetor[j] = vetor[j+1];
-                vetor[j+1] = aux;
-            }
-        }
-    }
-}
-
-//Selection Sort
-void selectionSort(int *vetor, int n)
-{
-    int i;
-    for (i = 0; i < (n-1); i++)
-    {
-        int menorIndice=i;
-        for(int j = (i+1); j <= (n-1); j++)
-        {
-            if(vetor[menorIndice] > vetor[j])
-            {
-                menorIndice = j;
-            }
-        }
-        int temp = vetor[i];
-        vetor[i] = vetor[menorIndice];
-        vetor[menorIndice] = temp;
-    }
-}
-
-//Shell Sort
-void shellSort(int *vetor, int n)
-{
-    int i , j , x;
-    int h = 1;
-
-    do 
-    {
-        h = 3*h+1;
-    } while(h < n);
-
-    do 
-    {
-        h /= 3;
-        for(i = h; i < n; i++) 
-        {
-            x = vetor[i];
-            j = i - h;
-
-            while (j >= 0 && x < vetor[j]) 
-            {
-                vetor[j + h] = vetor[j];
-                j -= h;
-            }
-            vetor[j + h] = x;
-        }
-    }while(h > 1);
-}
-
 //Merge Sort
 void mergeSort(int *vetor, int n) 
 {
   int *c = malloc(sizeof(int) * n);
-  sort(vetor, c, 0, n - 1);
+  dividir(vetor, c, 0, n - 1);
   free(c);
 }
 
@@ -100,7 +33,7 @@ void mergeSort(int *vetor, int n)
   Dado um vetor de inteiros e dois inteiros i e f, ordena o vetor[i..f] em ordem crescente.
   O vetor c é utilizado internamente durante a ordenação.
 */
-void sort(int *vetor, int *c, int i, int f) 
+void dividir(int *vetor, int *c, int i, int f) 
 {
   if (i >= f)
   {
@@ -109,16 +42,16 @@ void sort(int *vetor, int *c, int i, int f)
 
   int m = (i + f) / 2;
 
-  sort(vetor, c, i, m);
-  sort(vetor, c, m + 1, f);
+  dividir(vetor, c, i, m);
+  dividir(vetor, c, m + 1, f);
 
   /* Se vetor[m] <= vetor[m + 1], então vetor[i..f] já está ordenado. */
-  if (vetor[m] <= vetor[m + 1])
+  if(vetor[m] <= vetor[m + 1])
   {
     return;
   } 
 
-  merge(vetor, c, i, m, f);
+  conquistar(vetor, c, i, m, f);
 }
 
 
@@ -126,7 +59,7 @@ void sort(int *vetor, int *c, int i, int f)
   Dado um vetor e três inteiros i, m e f, sendo vetor[i..m] e vetor[m+1..f] vetores ordenados,
   coloca os elementos destes vetores, em ordem crescente, no vetor em vetor[i..f].
 */
-void merge(int *vetor, int *c, int i, int m, int f) 
+void conquistar(int *vetor, int *c, int i, int m, int f) 
 {
   int z, iv = i, ic = m + 1;
 
@@ -153,6 +86,7 @@ void merge(int *vetor, int *c, int i, int m, int f)
 
   while (iv <= m)
   {
+    
     vetor[z++] = c[iv++];
   } 
 
